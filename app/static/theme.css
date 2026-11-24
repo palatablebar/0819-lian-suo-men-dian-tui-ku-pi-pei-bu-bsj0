@@ -1,0 +1,53 @@
+:root { --bg:#f4f3df; --surface:#fffef0; --ink:#323117; --accent:#645c00; --radius:3px;
+  --pad:18px; --gap:13px; --row:41px; --font-ui:"Charter","PingFang SC",sans-serif;
+  --font-num:ui-monospace,monospace; --font-display:"Charter","PingFang SC",sans-serif;
+  --line:color-mix(in srgb,var(--ink) 20%,var(--surface)); --sub:color-mix(in srgb,var(--ink) 78%,var(--surface));
+  --alert:#972e24; --size:14px; --chart-height:97px; --button:color-mix(in srgb,var(--accent) 11%,var(--surface));
+  color-scheme:light; }
+* {box-sizing:border-box} [hidden] {display:none!important}
+body.book {margin:0;background:var(--bg);color:var(--ink);font:var(--size)/1.55 var(--font-ui)}
+.book .desk {display:grid;grid-template-areas:"mast mast mast" "source stages stages" "kpis kpis kpis" "inspection results chart" "archive results chart" "statusbar statusbar statusbar";grid-template-columns:.83fr 1.3fr .85fr;gap:var(--gap);margin:auto;padding:clamp(14px,3vw,42px);max-width:1674px}
+.book .mast {grid-area:mast;background:var(--surface);padding:var(--pad);min-width:0}
+.book .mast h1 {font:700 clamp(26px,4vw,59px)/1.1 var(--font-display);margin:0;overflow-wrap:anywhere}
+.book .role {color:var(--accent);margin:0 0 9px;font-weight:700}
+.book .source {grid-area:source;display:flex;align-items:center;flex-wrap:wrap;gap:var(--gap);padding:var(--pad);background:var(--surface);border:1px solid var(--line);min-width:0}
+.book .source input {position:absolute;width:1px;height:1px;opacity:0}
+.book .source:has(input:focus-visible) .file {outline:2px solid var(--accent);outline-offset:3px}
+.book .file {cursor:pointer;color:var(--accent);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.book #file-name {overflow-wrap:anywhere;max-width:100%}
+.book .stages {grid-area:stages;display:flex;gap:6px;flex-wrap:wrap;padding:var(--pad);background:var(--surface);min-width:0}
+.book button,.book select,.book textarea {font:inherit;color:inherit;border:1px solid var(--line);padding:.43em .75em;background:var(--button);border-radius:var(--radius);cursor:pointer}
+.book button:is(:hover,[aria-pressed="true"]),.book .action {background:var(--accent);color:var(--surface);border-color:var(--accent)}
+.book button:disabled {opacity:.52;cursor:default} .book :focus-visible {outline:2px solid var(--accent);outline-offset:3px}
+.book a {color:var(--accent);text-underline-offset:.2em}
+.book .kpis {grid-area:kpis;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap);min-width:0}
+.book .metric {background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:var(--pad);display:grid;align-content:center}
+.book .metric strong {font:600 clamp(22px,4vw,48px)/1.05 var(--font-num);font-variant-numeric:tabular-nums}
+.book .panel {background:var(--surface);padding:var(--pad);min-width:0;border:1px solid var(--line);border-radius:var(--radius)}
+.book .results {grid-area:results} .book .chart {grid-area:chart} .book .inspection {grid-area:inspection} .book .archive {grid-area:archive}
+.book h2 {font-size:17px;margin:0 0 10px} .book .panel-head {display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;justify-content:space-between}
+.book #counts,.book #run-status {color:var(--sub);overflow-wrap:anywhere}
+.book .scroll {overflow:auto;max-height:330px}
+.book table {border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;min-width:360px}
+.book th,.book td {text-align:left;height:var(--row);padding:5px 9px;border-bottom:1px solid var(--line);white-space:nowrap}
+.book th {position:sticky;top:0;background:var(--surface);color:var(--sub)} .book td:nth-child(n+2):nth-child(-n+4) {text-align:right}
+.book .badge {color:var(--alert);font-size:.83em;padding:2px 4px;white-space:nowrap} .book .badge:is([data-result="READY"],[data-result="APPROVED"]) {color:var(--accent)}
+.book #detail {margin:0;max-height:230px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font: .91em/1.5 var(--font-num)}
+.book #history {list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:var(--gap);margin:0} .book #history li {display:flex;align-items:center}
+.book #review {margin-top:14px;max-width:580px} .book textarea {display:block;width:100%;min-height:54px;cursor:text}
+.book .review-actions {display:flex;gap:6px;margin:8px 0}
+.book .statusbar {grid-area:statusbar;display:flex;gap:14px;justify-content:space-between;border-top:1px solid var(--line);padding:10px 0}
+.book [data-failure="true"] {color:var(--alert)}
+.book .mast {border-left:8px solid var(--accent)}
+.book .inspection {border-bottom:3px double var(--accent)}
+.book .chart {background-color:var(--bg)}
+.book .badge {border-bottom:1px solid currentColor}
+@media(max-width:1120px) { .book .desk {grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"mast mast" "source source" "stages stages" "kpis kpis" "results results" "chart inspection" "archive archive" "statusbar statusbar"} }
+@media(max-width:630px) { .book .desk {grid-template-columns:minmax(0,1fr);grid-template-areas:"mast" "source" "stages" "kpis" "chart" "results" "inspection" "archive" "statusbar"} .book .kpis {grid-template-columns:repeat(2,minmax(0,1fr))} .book .chart #visual {display:block!important} .book .stages button {width:auto} }
+@media print { .book .source,.book .stages,.book .archive,.book .statusbar {display:none} .book .desk {display:block} }
+
+.mark-piece {background:var(--accent);color:var(--surface);min-width:0}
+
+.receipt-list {display:grid;gap:5px}
+.receipt-line {display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:2px dotted var(--line);font-family:var(--font-num)}
+.receipt-pending {color:var(--alert);padding-top:7px}

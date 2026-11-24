@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% import "widgets.html" as ui %}
+{% block shell %}
+<body class="book">
+<main class="desk" aria-label="book">
+  {{ ui.identity(p) }}
+  {{ ui.navigation(p) }}
+  {{ ui.intake() }}
+  {{ ui.metrics() }}
+  {{ ui.visual(p) }}
+  {{ ui.results() }}
+  {{ ui.inspection() }}
+  {{ ui.archive() }}
+  {{ ui.status() }}
+</main>
+</body>
+{% endblock %}
